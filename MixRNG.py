@@ -29,7 +29,6 @@ def hwrng(numbytes, port):
     return hwrng
 
 
-
 def xorbytes(a, b):
     """Converts a&b from bytes to int then xor and returns as bytes"""
     a = int.from_bytes(a, byteorder='big')

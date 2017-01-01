@@ -1,4 +1,3 @@
-
 from os import urandom
 from time import sleep
 import serial
@@ -45,7 +44,3 @@ def rngmix(numbytes, port='COM4'):
     ib = urandom(numbytes)
     return xorbytes(hw, ib)
 
-
-# Test output:
-# print('hwrng: ', hwrng(100, 'COM4'))
-# print('xor: ', rngmix(100))

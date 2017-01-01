@@ -4,7 +4,7 @@ import serial
 
 
 def hwrng(numbytes, port):
-    """Extracts random bits from OneRNG, check serial settings if using different hwrng"""
+    """Extracts random bits from OneRNG, check serial settings if using a different hwrng"""
     ser = serial.Serial(
         port=port,
         baudrate=9600,

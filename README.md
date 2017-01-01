@@ -4,6 +4,6 @@ XOR's entropy from an inbuilt CSRNG and a hardware CSRNG connected via serial po
 
 Designed for OneRNG, if using other hardware RNG's, check serial settings first.
 
-http://onerng.info/onerng/
+http://onerng.info
 
 

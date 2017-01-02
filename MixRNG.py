@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from os import urandom
 from time import sleep
 import serial

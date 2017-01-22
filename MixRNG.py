@@ -15,16 +15,16 @@ def hwrng(numbytes, port):
         timeout=5,
         rtscts=True)
 
-    #Wait for handshake, Request To Send True
-    sleep(1)
+    # Wait for handshake, Request To Send True
+    sleep(0.5)
     ser.setRTS(1)
 
-    # Entropy feed starts/stops on input of cmdO/cmdo.
-    ser.write(bytes('cmdO'.encode('ascii')))
+    # Entropy feed starts/stops on input of cmdO/cmdo for the OneRNG.
+    ser.write(bytes('cmdO'.encode('ascii'))) # Start
     sleep(0.1)
     hwrng = ser.read(numbytes)
     sleep(0.1)
-    ser.write(bytes('cmdo'.encode('ascii')))
+    ser.write(bytes('cmdo'.encode('ascii'))) # Stop
     ser.setRTS(0)
     ser.close()
     return hwrng
@@ -39,8 +39,8 @@ def xorbytes(a, b):
 
 
 def rngmix(numbytes, port='COM4'):
-    """Returns xor of inbuilt CSRNG and hardware CSRNG"""
-    hw = hwrng(numbytes, port)
+    """Returns xor of bytes from both the inbuilt and hardware CSRNG's"""
     ib = urandom(numbytes)
-    return xorbytes(hw, ib)
+    hw = hwrng(numbytes, port)
+    return xorbytes(ib, hw)
 

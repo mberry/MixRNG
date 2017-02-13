@@ -1,8 +1,8 @@
 # MixRNG
 
-XOR's entropy from inbuilt and hardware CSRNG connected via serial port.
+XOR bits from inbuilt and hardware CSRNG.
 
-Designed for OneRNG, if using different hardware confirm serial settings first.
+Hardcoded settings for OneRNG, if using a different hardware RNG confirm serial settings are correct.
 
 http://onerng.info
 

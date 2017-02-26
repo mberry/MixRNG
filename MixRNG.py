@@ -1,11 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+import serial
 from os import urandom
 from time import sleep
-import serial
 
 
-def hwrng(numbytes, port):
-    """Extracts random bits from OneRNG, check serial settings if using a different hwrng"""
+def hwrng(numbytes, port='COM4'):
+    """Extracts bits from OneRNG, check serial settings if using different hardware"""
     ser = serial.Serial(
         port=port,
         baudrate=9600,
@@ -19,7 +19,7 @@ def hwrng(numbytes, port):
     sleep(0.5)
     ser.setRTS(1)
 
-    # Entropy feed starts/stops on input of cmdO/cmdo for the OneRNG.
+    # Entropy feed start/stops on input of cmdO/cmdo for the OneRNG.
     ser.write(bytes('cmdO'.encode('ascii'))) # Start
     sleep(0.1)
     hwrng = ser.read(numbytes)
@@ -38,8 +38,8 @@ def xorbytes(a, b):
     return xor.to_bytes((xor.bit_length() + 7) // 8, byteorder='big')
 
 
-def rngmix(numbytes, port='COM4'):
-    """Returns xor of bytes from both the inbuilt and hardware CSRNG's"""
+def mixrng(numbytes, port='COM4'):
+    """Returns bitwise xor of an inbuilt and hardware CSRNG"""
     ib = urandom(numbytes)
     hw = hwrng(numbytes, port)
     return xorbytes(ib, hw)

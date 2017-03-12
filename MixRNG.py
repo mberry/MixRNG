@@ -5,7 +5,7 @@ from time import sleep
 
 
 def hwrng(numbytes, port='COM4'):
-    """Extracts bits from OneRNG, check serial settings if using different hardware"""
+    """Extracts bits from OneRNG, check serial settings and start/stop command if using different hardware"""
     ser = serial.Serial(
         port=port,
         baudrate=9600,

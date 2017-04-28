@@ -37,6 +37,7 @@ def extrng(numbytes, port='COM4'):
     ser.write(bytes(stop.encode('ascii'))) 
     ser.setRTS(0)
     ser.close()
+    
     return hwrng
 
 

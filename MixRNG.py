@@ -6,6 +6,12 @@ from os import urandom
 
 def extrng(numbytes, port='COM4'):
     """Extracts bits from OneRNG, check serial settings and start/stop command if using different hardware"""
+    
+    # OneRNG feed starts/stops on input of cmdO/cmdo    
+    start = 'cmdO'
+    stop = 'cmdo'
+    
+    # Serial settings
     ser = serial.Serial(
         port=port,
         baudrate=9600,
@@ -14,13 +20,13 @@ def extrng(numbytes, port='COM4'):
         bytesize=serial.EIGHTBITS,
         timeout=5,
         rtscts=True)
-
+    
     # Wait for handshake, Request To Send set True
     time.sleep(0.2)
     ser.setRTS(1)
-
-    # Feed start/stops on input of cmdO/cmdo for OneRNG hardware
-    ser.write(bytes('cmdO'.encode('ascii'))) # Start
+    
+    # Start
+    ser.write(bytes(start.encode('ascii')))
     time.sleep(0.1)
     
     # Read
@@ -28,10 +34,9 @@ def extrng(numbytes, port='COM4'):
     time.sleep(0.1)
     
     # Stop
-    ser.write(bytes('cmdo'.encode('ascii'))) 
+    ser.write(bytes(stop.encode('ascii'))) 
     ser.setRTS(0)
     ser.close()
-    
     return hwrng
 
 
